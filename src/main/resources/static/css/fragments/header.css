@@ -1,0 +1,33 @@
+.my_header{
+    position: absolute;
+    top:0;
+    width: 100%;
+}
+.header_title{
+    color: white;
+    font-size:30px;
+    cursor:pointer;
+    margin-right: 15px;
+    transition: 0.2s;
+}
+.header_title:hover {
+    color: #d41111;
+    text-decoration: none;
+}
+
+.header_login{
+    color: #d41111;
+    margin-left: 15px;
+    transition: 0.2s;
+}
+
+.header_login:hover {
+    color: #d41111;
+    opacity: .5;
+    text-decoration: none;
+}
+
+.first{
+    height: 62px;
+    display: block;
+}

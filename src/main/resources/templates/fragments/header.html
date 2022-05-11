@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:fragment="header(projects)">
+
+    <div class="my_header">
+        <nav class="navbar navbar-dark bg-dark">
+            <div>
+<!--                <span class="header_title" th:if="${projects}" onclick="openMenu()">&#9776;</span>-->
+                <a class="header_title" href="/">ColorBase</a>
+            </div>
+
+            <form class="form-inline">
+                <a class="header_login" href="/login" th:unless="${#authorization.expression('isAuthenticated()')}">Login</a>
+                <a class="header_login" href="/signup" th:unless="${#authorization.expression('isAuthenticated()')}">Sign up</a>
+                <a class="header_login" href="/logout" th:if="${#authorization.expression('isAuthenticated()')}">Logout</a>
+            </form>
+        </nav>
+
+
+<!--        <div class = "side_menu"  th:if="${projects}" th:insert="~{fragments/side_menu :: side_menu(${projects})}"></div>-->
+
+    </div>
+    <div class="first"></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorBase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/index.css" type="text/css">
+    <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/modal_functions.js"></script>
+
+
+</head>
+<body>
+<div class = "header" th:insert="~{fragments/header :: header(${projects})}"></div>
+
+<div class="text_container">
+
+    <h2 class="main_title">Welcome to ProManager!</h2>
+    <h5 class="description">The best professional project manager</h5>
+    <h5 class="description">Here you can keep all your tasks and organize important links.</h5>
+    <h5 class="description">ProManager was created to make your life easier.</h5>
+    <h5 class="description">Join us!</h5>
+
+</div>
+
+<!--<img class="image_circle" src="/img/1.jpg">-->
+<!--<div class="image_quoter">-->
+<!--    <img src="/img/4.jpg">-->
+<!--</div>-->
+
+
+</body>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorBase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/signup.css" type="text/css">
+    <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class = "header" th:insert="~{fragments/header :: header(null)}"></div>
+
+<div class="info_container">
+    <form id="form">
+        <h2>Login</h2>
+        <p>Login : </p>
+        <input type="text" placeholder="Login" name="login">
+        <p>Password : </p>
+        <input type="password" placeholder="Password" name="password">
+        <button class="form_btn btn btn-success" type="submit">Login</button>
+    </form>
+</div>
+
+
+<script>
+
+    $(function() {
+
+        $('#form').submit(function(e) {
+            e.preventDefault();
+
+            var data = {
+                login: $(this).find('[name=login]').val(),
+                password: $(this).find('[name=password]').val(),
+            };
+            if(data.login == "" ||data.password == "")
+                alert("Please fill all fields");
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: '/login',
+                    dataType: 'json',
+                    data: JSON.stringify(data),
+
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/json')
+                    },
+                    success: function (response) {
+                        window.location.href = "/";
+                    },
+                    error: function (request, textStatus, errorThrown) {
+                        alert(request.getResponseHeader('error'));
+                    }
+                });
+            }
+
+        });
+
+
+    });
+
+
+</script>
+
+
+</body>
+</html>
+
