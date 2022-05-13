@@ -1,0 +1,42 @@
+.set {
+    display: inline-block;
+    align-items: center;
+
+    background-color: #e4ede8;
+    border-radius: 10px;
+    margin-top: 10px;
+    width:18%;
+    /*width: 240px;*/
+    margin-right: 20px;
+    min-height: 60px;
+}
+
+.hidden{
+    display: none;
+}
+
+.set_name{
+    margin-left: 25px;
+    margin-top: 15px;
+    display: inline-block;
+
+}
+
+@media screen and (max-width: 1300px) {
+    .colour{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .colour{
+        width: 46%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .colour{
+        width: 100%;
+    }
+}
+

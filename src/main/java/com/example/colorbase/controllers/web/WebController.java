@@ -1,6 +1,8 @@
 package com.example.colorbase.controllers.web;
 
 
+import com.example.colorbase.services.ColourService;
+import com.example.colorbase.services.SetService;
 import com.example.colorbase.services.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebController {
     private final UserService userService;
+    private final ColourService colourService;
+
+    private final SetService setService;
 
     @RequestMapping(value = {"/", "/colorbase"}, method = RequestMethod.GET)
     public String index(Model model, Principal principal){
@@ -25,6 +30,18 @@ public class WebController {
 //            ).get().getProjects());
 
         return "index";
+    }
+
+    @RequestMapping(value = {"/colours"}, method = RequestMethod.GET)
+    public String colours(Model model, Principal principal){
+        model.addAttribute("colours", colourService.getColours());
+        return "colours";
+    }
+
+    @RequestMapping(value = {"/sets"}, method = RequestMethod.GET)
+    public String sets(Model model, Principal principal){
+        model.addAttribute("sets", setService.getSets());
+        return "sets";
     }
 
 

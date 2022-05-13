@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>ColorBase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/container.css" type="text/css">
+    <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </head>
 <body>
-$END$
+<div class = "header" th:insert="~{fragments/header :: header(${collections})}"></div>
+
+
+<div class="my_container" id="sets_container">
+
+    <div th:each="set : ${sets}" class = "set"
+         th:insert="~{fragments/set :: set(${set})}"
+         th:data-id="${set.id}"
+         th:id="'set_'+${set.id}">
+
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+
+    });
+</script>
+
 </body>
-</html>

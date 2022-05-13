@@ -3,13 +3,16 @@
 
 <body>
 
-<div th:fragment="header(projects)">
+<div th:fragment="header(collections)">
 
     <div class="my_header">
         <nav class="navbar navbar-dark bg-dark">
             <div>
 <!--                <span class="header_title" th:if="${projects}" onclick="openMenu()">&#9776;</span>-->
                 <a class="header_title" href="/">ColorBase</a>
+                <a class="header_title" href="/colours">Colours</a>
+                <a class="header_title" href="/sets">Sets</a>
+
             </div>
 
             <form class="form-inline">

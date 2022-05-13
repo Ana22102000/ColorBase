@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+
 <body>
-$END$
+<div th:fragment="set(set)">
+
+
+    <div class="hidden" th:text="${set.id}"></div>
+
+    <div >
+        <label class = "set_name" th:text="${set.name}"></label>
+
+    </div>
+</div>
 </body>
 </html>
