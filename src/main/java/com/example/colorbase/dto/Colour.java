@@ -56,6 +56,10 @@ public class Colour {
     @NotEmpty
     private Boolean confirmedASTM;
 
+    @Column(name = "approved")
+    @NotEmpty
+    private Boolean approved;
+
     @Column(name = "opacity")
     private String opacity;
 

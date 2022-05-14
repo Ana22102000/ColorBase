@@ -1,6 +1,7 @@
 package com.example.colorbase.controllers.rest;
 
 import com.example.colorbase.dto.users.User;
+import com.example.colorbase.services.users.RoleService;
 import com.example.colorbase.services.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RestUserController {
     private final UserService userService;
+    private final RoleService roleService;
+
 
     @ResponseBody
     @RequestMapping(value = {"/edit_user"}, method = RequestMethod.PUT)
@@ -61,6 +64,8 @@ public class RestUserController {
     @ResponseBody
     @RequestMapping(value = {"/signup"}, method = RequestMethod.POST)
     public User signup(@RequestBody @Valid User user){
+        //todo check id or search by enum
+        user.setRole(roleService.findRoleById(1).get());
         return userService.createUser(user);
     }
 

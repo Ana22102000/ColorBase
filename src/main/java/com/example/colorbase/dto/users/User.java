@@ -1,6 +1,10 @@
 package com.example.colorbase.dto.users;
 
-import com.example.colorbase.dto.Roles;
+import com.example.colorbase.EntityIdResolver;
+import com.example.colorbase.dto.Brand;
+import com.example.colorbase.dto.Role;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,12 +12,11 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
+@Table(name = "user")
 @ToString
 public class User {
     @Id
@@ -41,12 +44,28 @@ public class User {
     @Length(min = 3, max = 20)
     private String surname;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private List<Roles> roles;
+//    @Column(name = "role", unique = true)
+//    @NotEmpty
+//    @Length(min = 3, max = 20)
+//    private String role;
+
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            resolver = EntityIdResolver.class,
+            property = "id",
+            scope= Role.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinColumn(name="role_id", nullable=false)
+    private Role role;
+
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_to_role",
+//            joinColumns = @JoinColumn(
+//                    name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(
+//                    name = "role_id", referencedColumnName = "id"))
+//    private List<Roles> roles;
 }

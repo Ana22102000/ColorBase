@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public List<User> getAll(){
-        return userRepo.findAllByOrderByLogin();
+        return userRepo.findAll();
     }
 
 //    public List<User> getUsersFromProject(Integer project_id){

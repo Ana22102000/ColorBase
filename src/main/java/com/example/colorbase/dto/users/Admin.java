@@ -9,11 +9,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@DiscriminatorValue("ADMIN")
-@ToString
+//@Entity
+//@Getter
+//@Setter
+//@DiscriminatorValue("ADMIN")
+//@ToString
 public class Admin extends User{
 
 //    @JsonIgnore

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ColorBase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/container.css" type="text/css">
+    <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+    <link rel="stylesheet" href="/css/colour.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</head>
+<body>
+<div class = "header" th:insert="~{fragments/header :: header(${collections})}"></div>
+
+
+<div class="my_container" id="colours_container">
+
+    <div th:data-id="${colour.id}">
+        <div class="col1">
+            <img class = "colour_image" th:src="${colour.image}">
+        </div>
+        <div class="col2">
+            <label class = "colour_name" th:text="${colour.name}"></label>
+            <label style="display: inline-block" class = "colour_info" th:text="${colour.brand.name}"></label>
+            <label style="display: inline-block" class = "colour_info" th:if="${colour.brand.country}" th:text="', '+${colour.brand.country}"></label>
+            <label style="display: inline-block" class = "colour_small_info" th:text="'('+${colour.grade}+' grade)'"></label>
+
+            <label class = "colour_info" th:text="${colour.type}"></label>
+            <label class = "colour_info" th:if="${colour.pigments}" th:text="'Pigment: ' + ${colour.pigments}"></label>
+            <label class = "colour_info" th:unless="${colour.pigments}">Pigments unknown</label>
+
+
+            <br>
+
+            <div th:if="${colour.lightfast}">
+                <label style="display: inline-block" class = "colour_small_info" th:text="'Lightfast: ' + ${colour.lightfast}"></label>
+                <label style="display: inline-block" class = "colour_small_info" th:if="${colour.confirmedASTM}">(Approved by ASTM)</label>
+            </div>
+            <label class = "colour_small_info" th:if="${colour.staining}"th:text="'Staining: ' + ${colour.staining}"></label>
+            <label class = "colour_small_info" th:if="${colour.opacity}" th:text="'Opacity: ' + ${colour.opacity}"></label>
+
+            <br>
+            <label class = "colour_small_info" th:if="${colour.granulation} != null and ${colour.granulation}">Granulating</label>
+            <label class = "colour_small_info" th:if="${colour.binder}"th:text="'Binder: ' + ${colour.binder}"></label>
+            <label class = "colour_small_info" th:if="${colour.additives}" th:text="'Additives: ' + ${colour.additives}"></label>
+
+            <div class="buttons_container" th:data-id="${colour.id}">
+                <div class="buttons_container_component">Save to:</div>
+                <select class="buttons_container_component" name="collection" id="collection-select">
+                    <option value="selected">Selected</option>
+                    <option value="selected">Selected 2</option>
+
+                </select>
+                <div class="buttons_container_component" >collection</div>
+
+                <!--                <button class="select_colour_button" th:data-id="${colour.id}" >Save</button>-->
+            </div>
+
+        </div>
+
+<!--        <div class="hidden" th:text="${colour.id}"></div>-->
+
+
+    </div>
+
+    <div class="horizontal-divider"></div>
+    <label class = "colour_name">Sets with this colour:</label>
+
+
+    <div th:each="set : ${colour.sets}" class = "set"
+         th:insert="~{fragments/set :: set(${set})}"
+         th:data-id="${set.id}"
+         th:id="'set_'+${set.id}">
+
+    </div>
+</div>
+
+
+<script>
+
+    $(function () {
+        $(".set").click(function(e){
+            var id = e.currentTarget.getAttribute("data-id");
+            window.open("/set/"+id, "_self");
+
+        });
+
+        $(document).on("click",".buttons_container",function(e) {
+            if(e.target.type!= 'select-one'){
+
+                var id = e.currentTarget.getAttribute("data-id");
+
+                console.log(id);
+            }
+
+
+        });
+
+    });
+</script>
+
+</body>

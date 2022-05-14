@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface ColourRepo extends JpaRepository<Colour, Integer> {
     Optional<Colour> findById(int id);
     List<Colour> getAllByBrandId(int id);
+
+    List<Colour> getAllByApproved(boolean approved);
     List<Colour> findAll();
 }

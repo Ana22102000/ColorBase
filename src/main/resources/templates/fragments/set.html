@@ -2,15 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
+
+
 <div th:fragment="set(set)">
 
 
-    <div class="hidden" th:text="${set.id}"></div>
-
+    <img class = "set_image" th:src="${set.image}">
     <div >
         <label class = "set_name" th:text="${set.name}"></label>
+        <label class = "set_info" th:text="${set.brand.name}"></label>
+        <label class = "set_info" th:text="${#lists.size(set.colours)}+' colours to view'"></label>
 
     </div>
+
 </div>
 </body>
 </html>

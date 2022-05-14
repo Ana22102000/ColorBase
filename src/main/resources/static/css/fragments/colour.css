@@ -1,14 +1,19 @@
 .colour {
     display: inline-block;
     align-items: center;
+    text-align: center;
 
-    background-color: #e4ede8;
+    background-color: #c4ccc6;
+    border: 3px solid #292929;
+
     border-radius: 10px;
     margin-top: 10px;
     width:18%;
     /*width: 240px;*/
     margin-right: 20px;
     min-height: 60px;
+    cursor: pointer;
+
 }
 
 .hidden{
@@ -16,10 +21,31 @@
 }
 
 .colour_name{
-    margin-left: 25px;
-    margin-top: 15px;
-    display: inline-block;
+    margin-top: 3px;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
 
+.colour_info{
+    margin-top: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.colour_image{
+    margin: 15px;
+    width: calc(100% - 30px);
+    border: 3px solid #292929;
+    border-radius: 10px;
+
+
+}
+
+@media screen and (max-width: 1470px) {
+    .colour{
+        width: 22%;
+    }
 }
 
 @media screen and (max-width: 1300px) {

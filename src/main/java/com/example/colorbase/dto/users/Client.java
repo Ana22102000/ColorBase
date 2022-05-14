@@ -10,10 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-@Entity
-@Getter
-@Setter
-@DiscriminatorValue("CLIENT")
+//@Entity
+//@Getter
+//@Setter
+//@DiscriminatorValue("CLIENT")
 public class Client  extends User{
 
 //    @JsonIgnore

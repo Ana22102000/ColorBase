@@ -9,8 +9,14 @@
 
     <div class="hidden" th:text="${colour.id}"></div>
 
+    <img class = "colour_image" th:src="${colour.image}">
     <div >
         <label class = "colour_name" th:text="${colour.name}"></label>
+        <label class = "colour_info" th:text="${colour.brand.name}"></label>
+        <label class = "colour_info" th:text="${colour.type}"></label>
+        <label class = "colour_info" th:if="${colour.pigments}" th:text="${colour.pigments}"></label>
+        <label class = "colour_info" th:unless="${colour.pigments}">Pigments unknown</label>
+
 
     </div>
 

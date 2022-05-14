@@ -1,0 +1,31 @@
+.col1{
+    width:30%;
+    display: inline-block;
+    margin-top: 0px;
+    vertical-align: middle;
+}
+
+.col2{
+    width:40%;
+    display: inline-block;
+    margin-left: 10%;
+    margin-top: 0px;
+    vertical-align: middle;
+
+}
+
+.set_name{
+    font-size: 30px;
+}
+
+.set_info{
+    font-size: 20px;
+}
+
+.set_small_info{
+    font-size: 16px;
+    display: block;
+    margin-top: 3px;
+    margin-right: 2px;
+
+}

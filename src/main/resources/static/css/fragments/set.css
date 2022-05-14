@@ -1,14 +1,18 @@
 .set {
     display: inline-block;
     align-items: center;
+    text-align: center;
 
-    background-color: #e4ede8;
+    background-color: #c4ccc6;
+    border: 3px solid #292929;
+
     border-radius: 10px;
     margin-top: 10px;
     width:18%;
     /*width: 240px;*/
     margin-right: 20px;
     min-height: 60px;
+    cursor: pointer;
 }
 
 .hidden{
@@ -16,26 +20,47 @@
 }
 
 .set_name{
-    margin-left: 25px;
-    margin-top: 15px;
-    display: inline-block;
+    margin-top: 3px;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.set_info{
+    margin-top: 5px;
+    display: block;
+    font-size: 14px;
+}
+
+.set_image{
+    margin: 15px;
+    width: calc(100% - 30px);
+    border: 3px solid #292929;
+    border-radius: 10px;
+
 
 }
 
+@media screen and (max-width: 1470px) {
+    .set{
+        width: 22%;
+    }
+}
+
 @media screen and (max-width: 1300px) {
-    .colour{
+    .set{
         width: 30%;
     }
 }
 
 @media screen and (max-width: 1000px) {
-    .colour{
+    .set{
         width: 46%;
     }
 }
 
 @media screen and (max-width: 700px) {
-    .colour{
+    .set{
         width: 100%;
     }
 }

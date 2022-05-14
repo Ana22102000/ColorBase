@@ -1,12 +1,14 @@
 package com.example.colorbase.dto;
 
+import com.example.colorbase.dto.users.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -14,18 +16,23 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Roles {
+public class Role {
 
         @Id
         @Column(name = "id")
         @GeneratedValue(strategy = GenerationType.AUTO)
         private Integer id;
 
-        @Enumerated(EnumType.STRING)
+//        @Enumerated(EnumType.STRING)
         @Column(name = "role")
-        private RoleName role;
+        private String role;
 
-        public enum RoleName {
+    @JsonIgnore
+    @OneToMany(mappedBy="role", fetch = FetchType.LAZY)
+    private List<User> users;
+
+
+    public enum RoleName {
             OWNER,
             ADMIN,
             CLIENT,

@@ -28,6 +28,11 @@
 <script>
 
     $(function () {
+        $(".set").click(function(e){
+            var id = e.currentTarget.getAttribute("data-id");
+            window.open("/set/"+id, "_self");
+
+        });
 
     });
 </script>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/container.css" type="text/css">
     <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+    <link rel="stylesheet" href="/css/set.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -14,28 +15,45 @@
 <div class = "header" th:insert="~{fragments/header :: header(${collections})}"></div>
 
 
-<div class="my_container" id="colours_container">
+<div class="my_container" id="sets_container">
 
-            <div th:each="colour : ${colours}" class = "colour"
-                 th:insert="~{fragments/colour :: colour(${colour})}"
-                 th:data-id="${colour.id}"
-                 th:id="'colour_'+${colour.id}">
+    <div th:data-id="${set.id}">
+        <div class="col1">
+            <img class = "set_image" th:src="${set.image}">
+        </div>
+        <div class="col2">
+            <label class = "set_name" th:text="${set.name}"></label>
+            <label class = "set_info" th:text="${set.brand.name}"></label>
+            <label class = "set_info" th:if="${set.brand.country}" th:text="${set.brand.country}"></label>
+            <label class = "set_small_info" th:text="'Capacity: '+${set.capacity}"></label>
 
-            </div>
+        </div>
+
+    </div>
+
+<div class="horizontal-divider"></div>
+
+
+        <div th:each="colour : ${set.colours}" class = "colour"
+             th:insert="~{fragments/colour :: colour(${colour})}"
+             th:data-id="${colour.id}"
+             th:id="'colour_'+${colour.id}">
+
+        </div>
+
+
 </div>
 
 
 <script>
 
     $(function () {
-
-        // var container = document.getElementById("colours_container");
-
         $(".colour").click(function(e){
             var id = e.currentTarget.getAttribute("data-id");
             window.open("/colour/"+id, "_self");
 
         });
+
 
     });
 </script>
