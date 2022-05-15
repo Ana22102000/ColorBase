@@ -17,7 +17,7 @@
         <label class = "colour_info" th:if="${colour.pigments}" th:text="${colour.pigments}"></label>
         <label class = "colour_info" th:unless="${colour.pigments}">Pigments unknown</label>
 
-        <button th:if="${page} == 'collections'" th:data-id="${colour.id}" type="button" class="btn btn-danger colour_button delete_colour_from_collection">Delete from collection</button>
+        <button th:if="${page} == 'collections'" th:data-id="${colour.id}" type="button" class="colour_button btn btn-danger delete_colour_from_collection">Delete from collection</button>
 
 
     </div>

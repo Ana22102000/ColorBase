@@ -6,7 +6,17 @@
     color:#d41111;
 
 }
+.collection_button{
+    display: block;
+}
 
+.no_collections{
+    font-size: 30px;
+    margin-top: 15px;
+    display: block;
+    font-weight: bold;
+    color:#d41111;
+}
 .no_colours{
     font-size: 20px;
     margin-top: 3px;

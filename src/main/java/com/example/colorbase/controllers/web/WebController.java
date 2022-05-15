@@ -3,19 +3,16 @@ package com.example.colorbase.controllers.web;
 
 import com.example.colorbase.dto.Colour;
 import com.example.colorbase.dto.Set;
-import com.example.colorbase.dto.users.User;
 import com.example.colorbase.services.CollectionService;
 import com.example.colorbase.services.ColourService;
 import com.example.colorbase.services.SetService;
 import com.example.colorbase.services.users.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -43,7 +40,7 @@ public class WebController {
     @RequestMapping(value = {"/colours"}, method = RequestMethod.GET)
     public String colours(Model model, Principal principal){
         model.addAttribute("colours", colourService.getApprovedColours());
-        return "colours";
+        return "colour/colours";
     }
 
     @RequestMapping("/colour/{id}")
@@ -54,7 +51,7 @@ public class WebController {
 
 
 
-            return "colour";
+            return "colour/colour";
         }
         else{
             return "error/no_access";
@@ -69,7 +66,17 @@ public class WebController {
 
             int userId = userService.getUserByLogin(principal.getName()).get().getId();
             model.addAttribute("collections", collectionService.getCollectionsByUserId(userId));
-            return "collections";
+            return "collection/collections";
+        }
+        else{
+            return "error/no_access";
+        }
+    }
+
+    @RequestMapping("/add_collection")
+    public String addCollection(Principal principal) {
+        if(principal!=null){
+            return "collection/add_collection";
         }
         else{
             return "error/no_access";
@@ -79,7 +86,7 @@ public class WebController {
     @RequestMapping(value = {"/sets"}, method = RequestMethod.GET)
     public String sets(Model model, Principal principal){
         model.addAttribute("sets", setService.getSets());
-        return "sets";
+        return "set/sets";
     }
 
     @RequestMapping("/set/{id}")
@@ -87,7 +94,7 @@ public class WebController {
         Optional<Set> setOptional = setService.getById(id);
         if (setOptional.isPresent()){
             model.addAttribute("set", setOptional.get());
-            return "set";
+            return "set/set";
         }
         else{
             return "error/no_access";

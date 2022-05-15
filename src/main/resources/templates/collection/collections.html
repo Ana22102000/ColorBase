@@ -18,10 +18,16 @@
 
 <div class="my_container" id="collections_container">
 
+    <button type="button" class="collection_button btn btn-success add_collection">Add collection</button>
+
+    <div th:if="${collections.size() == 0}" class="no_collections">You don't have collections</div>
+
     <div th:each="collection : ${collections}" class = "collection"
          th:data-id="${collection.id}">
 
         <div class = collection_name th:text="${collection.name}"></div>
+        <button th:data-id="${collection.id}" type="button" class="collection_button btn btn-danger delete_collection">Delete collection</button>
+
 
         <div th:if="${collection.colours.size() == 0}" class="no_colours">You don't have colours in this collection</div>
 
@@ -42,14 +48,10 @@
 
     $(function () {
 
-        // var container = document.getElementById("colours_container");
+        var container = document.getElementById("collections_container");
 
         $(".delete_colour_from_collection").click(function(e){
             var colour = e.currentTarget;
-
-            while (!colour.classList.contains('colour')) {
-                colour = colour.parentElement;
-            }
 
             var colour_id = e.currentTarget.getAttribute("data-id");
 
@@ -75,7 +77,24 @@
                 },
                 success: function (response, status) {
                     console.log('success')
+
+                    while (!colour.classList.contains('colour')) {
+                        colour = colour.parentElement;
+                    }
+
+                    colour.nextSibling.remove();
                     colour.remove();
+                    if(collection.childNodes.length == 5){
+
+                        let div = document.createElement('div');
+                        div.classList.add('no_colours');
+                        let text = document.createTextNode('You don\'t have colours in this collection');
+                        div.appendChild(text);
+
+                        collection.appendChild(div);
+                    }
+                    console.log(collection.childNodes)
+
 
                 },
                 error: function (request) {
@@ -85,14 +104,58 @@
 
         });
 
+        $(".delete_collection").click(function(e){
+
+            var collection = e.currentTarget;
+
+            var collection_id = collection.getAttribute("data-id");
+
+
+            var data = {
+                collection_id: collection_id
+            };
+            $.ajax({
+                type: 'delete',
+                url: '/removeCollection',
+                data: JSON.stringify(data),
+
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                },
+                success: function (response, status) {
+                    console.log('success')
+                    while (!collection.classList.contains('collection')) {
+                        collection = collection.parentElement;
+                    }
+                    collection.nextSibling.remove();
+                    collection.remove();
+                    console.log(container.childNodes.length)
+                    if(container.childNodes.length==3) {
+                        let div = document.createElement('div');
+                        div.classList.add('no_collections');
+                        let text = document.createTextNode('You don\'t have collections');
+                        div.appendChild(text);
+
+                        container.appendChild(div);
+                    }
+
+                },
+                error: function (request) {
+                    alert(request.responseText);
+                }
+            });
+
+        });
+
+        $(".add_collection").click(function(e){
+            window.open("/add_collection", "_self");
+        });
+
         $(".colour").click(function(e){
-            // console.log(e.target.className)
             if(!e.target.classList.contains('delete_colour_from_collection')){
                 var id = e.currentTarget.getAttribute("data-id");
                 window.open("/colour/"+id, "_self");
             }
-
-
         });
 
 
