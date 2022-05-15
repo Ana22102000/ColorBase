@@ -20,7 +20,9 @@ public class RoleService {
     public Optional<Role> findRoleById(int id){
         return repo.findRoleById(id);
     }
-
+    public Optional<Role> findRoleByRole(Role.RoleName role){
+        return repo.findRoleByRole(role.toString());
+    }
 
 
 }

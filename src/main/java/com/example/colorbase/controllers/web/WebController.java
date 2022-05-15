@@ -48,10 +48,6 @@ public class WebController {
 
     @RequestMapping("/colour/{id}")
     public String colour(@PathVariable(value="id") Integer id, Model model, Principal principal) {
-
-//        List <User> users = userService.getAll();
-
-//        System.out.println(userService.getUserByLogin("login").get().getRole());
         Optional<Colour> colourOptional = colourService.getById(id);
         if (colourOptional.isPresent()){
             model.addAttribute("colour", colourOptional.get());

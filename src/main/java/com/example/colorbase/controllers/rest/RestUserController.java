@@ -1,6 +1,7 @@
 package com.example.colorbase.controllers.rest;
 
 import com.example.colorbase.dto.Collection;
+import com.example.colorbase.dto.Role;
 import com.example.colorbase.dto.users.User;
 import com.example.colorbase.services.CollectionService;
 import com.example.colorbase.services.users.RoleService;
@@ -71,8 +72,7 @@ public class RestUserController {
     @ResponseBody
     @RequestMapping(value = {"/signup"}, method = RequestMethod.POST)
     public User signup(@RequestBody @Valid User user){
-        //todo check id or search by enum
-        user.setRole(roleService.findRoleById(1).get());
+        user.setRole(roleService.findRoleByRole(Role.RoleName.CLIENT).get());
         Collection collection = new Collection();
         collection.setName("Selected");
         User createdUser = userService.createUser(user);

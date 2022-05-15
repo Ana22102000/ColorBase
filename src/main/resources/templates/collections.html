@@ -44,11 +44,58 @@
 
         // var container = document.getElementById("colours_container");
 
-        $(".colour").click(function(e){
-            var id = e.currentTarget.getAttribute("data-id");
-            window.open("/colour/"+id, "_self");
+        $(".delete_colour_from_collection").click(function(e){
+            var colour = e.currentTarget;
+
+            while (!colour.classList.contains('colour')) {
+                colour = colour.parentElement;
+            }
+
+            var colour_id = e.currentTarget.getAttribute("data-id");
+
+            var collection = e.currentTarget;
+            while (!collection.classList.contains('collection')) {
+                collection = collection.parentElement;
+            }
+
+            var collection_id = collection.getAttribute("data-id");
+
+
+            var data = {
+                colour_id: colour_id,
+                collection_id: collection_id
+            };
+            $.ajax({
+                type: 'delete',
+                url: '/removeColourFromCollection',
+                data: JSON.stringify(data),
+
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                },
+                success: function (response, status) {
+                    console.log('success')
+                    colour.remove();
+
+                },
+                error: function (request) {
+                    alert(request.responseText);
+                }
+            });
 
         });
+
+        $(".colour").click(function(e){
+            // console.log(e.target.className)
+            if(!e.target.classList.contains('delete_colour_from_collection')){
+                var id = e.currentTarget.getAttribute("data-id");
+                window.open("/colour/"+id, "_self");
+            }
+
+
+        });
+
+
 
     });
 </script>
