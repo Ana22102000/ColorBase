@@ -4,6 +4,7 @@ package com.example.colorbase.controllers.web;
 import com.example.colorbase.dto.Colour;
 import com.example.colorbase.dto.Set;
 import com.example.colorbase.dto.users.User;
+import com.example.colorbase.services.CollectionService;
 import com.example.colorbase.services.ColourService;
 import com.example.colorbase.services.SetService;
 import com.example.colorbase.services.users.UserService;
@@ -24,6 +25,8 @@ public class WebController {
     private final ColourService colourService;
 
     private final SetService setService;
+    private final CollectionService collectionService;
+
 
     @RequestMapping(value = {"/", "/colorbase"}, method = RequestMethod.GET)
     public String index(Model model, Principal principal){
@@ -46,13 +49,9 @@ public class WebController {
     @RequestMapping("/colour/{id}")
     public String colour(@PathVariable(value="id") Integer id, Model model, Principal principal) {
 
-//        System.out.println(principal.getName());
-        List <User> users = userService.getAll();
-//        System.out.println(users.size());
+//        List <User> users = userService.getAll();
 
-//        System.out.println(userService.getUserByLogin("login3").get().getPassword());
-
-        System.out.println(userService.getUserByLogin("login").get().getRole());
+//        System.out.println(userService.getUserByLogin("login").get().getRole());
         Optional<Colour> colourOptional = colourService.getById(id);
         if (colourOptional.isPresent()){
             model.addAttribute("colour", colourOptional.get());
@@ -60,6 +59,21 @@ public class WebController {
 
 
             return "colour";
+        }
+        else{
+            return "error/no_access";
+        }
+    }
+
+    @RequestMapping("/collections")
+    public String collections(Model model, Principal principal) {
+
+        System.out.println(principal);
+        if(principal!=null){
+
+            int userId = userService.getUserByLogin(principal.getName()).get().getId();
+            model.addAttribute("collections", collectionService.getCollectionsByUserId(userId));
+            return "collections";
         }
         else{
             return "error/no_access";

@@ -2,8 +2,11 @@ package com.example.colorbase.dto.users;
 
 import com.example.colorbase.EntityIdResolver;
 import com.example.colorbase.dto.Brand;
+import com.example.colorbase.dto.Collection;
 import com.example.colorbase.dto.Role;
+import com.example.colorbase.dto.Set;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Getter
@@ -68,4 +72,8 @@ public class User {
 //            inverseJoinColumns = @JoinColumn(
 //                    name = "role_id", referencedColumnName = "id"))
 //    private List<Roles> roles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Collection> collections;
 }

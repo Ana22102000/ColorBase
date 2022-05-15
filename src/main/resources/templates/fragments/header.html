@@ -3,7 +3,7 @@
 
 <body>
 
-<div th:fragment="header(collections)">
+<div th:fragment="header()">
 
     <div class="my_header">
         <nav class="navbar navbar-dark bg-dark">
@@ -12,6 +12,7 @@
                 <a class="header_title" href="/">ColorBase</a>
                 <a class="header_title" href="/colours">Colours</a>
                 <a class="header_title" href="/sets">Sets</a>
+                <a class="header_title" href="/collections" th:if="${#authorization.expression('isAuthenticated()')}">Collections</a>
 
             </div>
 

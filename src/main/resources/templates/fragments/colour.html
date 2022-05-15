@@ -4,7 +4,7 @@
 <body>
 
 
-<div th:fragment="colour(colour)">
+<div th:fragment="colour(colour, page)">
 
 
     <div class="hidden" th:text="${colour.id}"></div>
@@ -16,6 +16,8 @@
         <label class = "colour_info" th:text="${colour.type}"></label>
         <label class = "colour_info" th:if="${colour.pigments}" th:text="${colour.pigments}"></label>
         <label class = "colour_info" th:unless="${colour.pigments}">Pigments unknown</label>
+
+        <button th:if="${page} == 'collections'" type="button" class="btn btn-danger colour_button">Delete from collection</button>
 
 
     </div>

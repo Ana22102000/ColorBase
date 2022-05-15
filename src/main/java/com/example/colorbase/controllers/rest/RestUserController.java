@@ -1,6 +1,8 @@
 package com.example.colorbase.controllers.rest;
 
+import com.example.colorbase.dto.Collection;
 import com.example.colorbase.dto.users.User;
+import com.example.colorbase.services.CollectionService;
 import com.example.colorbase.services.users.RoleService;
 import com.example.colorbase.services.users.UserService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 @RestController
@@ -16,6 +20,9 @@ import java.util.Map;
 public class RestUserController {
     private final UserService userService;
     private final RoleService roleService;
+
+    private final CollectionService collectionService;
+
 
 
     @ResponseBody
@@ -66,7 +73,16 @@ public class RestUserController {
     public User signup(@RequestBody @Valid User user){
         //todo check id or search by enum
         user.setRole(roleService.findRoleById(1).get());
-        return userService.createUser(user);
+        Collection collection = new Collection();
+        collection.setName("Selected");
+        User createdUser = userService.createUser(user);
+        collection.setUser(createdUser);
+        collectionService.addCollection(collection);
+
+        createdUser.setCollections(new ArrayList<Collection>(Arrays.asList(collection)));
+
+        System.out.println(createdUser.getCollections().size());
+        return createdUser;
     }
 
 }

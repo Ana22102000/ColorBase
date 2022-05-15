@@ -25,12 +25,16 @@
     display: block;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
+
 }
 
 .colour_info{
     margin-top: 5px;
     display: block;
     font-size: 14px;
+    cursor: pointer;
+
 }
 
 .colour_image{
@@ -39,7 +43,10 @@
     border: 3px solid #292929;
     border-radius: 10px;
 
+}
 
+.colour_button{
+    width: 100%;
 }
 
 @media screen and (max-width: 1470px) {

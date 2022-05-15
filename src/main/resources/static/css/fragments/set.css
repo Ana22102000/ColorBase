@@ -24,12 +24,16 @@
     display: block;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
+
 }
 
 .set_info{
     margin-top: 5px;
     display: block;
     font-size: 14px;
+    cursor: pointer;
+
 }
 
 .set_image{

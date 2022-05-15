@@ -124,4 +124,9 @@ insert into set_to_colour (set_id, colour_id) values
 
 insert into collection (name, user_id) values
                                                   ('Selected',1),
+                                                  ('Selected2',1),
                                                   ('Selected',2);
+
+insert into collection_to_colour (collection_id, colour_id) values
+                                                (1,1),
+                                                (1,2);

@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/container.css" type="text/css">
     <link rel="stylesheet" href="/css/fragments/fragments.css" type="text/css">
+    <link rel="stylesheet" href="/css/collections.css" type="text/css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -14,12 +16,23 @@
 <div class = "header" th:insert="~{fragments/header :: header()}"></div>
 
 
-<div class="my_container" id="sets_container">
+<div class="my_container" id="collections_container">
 
-    <div th:each="set : ${sets}" class = "set"
-         th:insert="~{fragments/set :: set(${set})}"
-         th:data-id="${set.id}"
-         th:id="'set_'+${set.id}">
+    <div th:each="collection : ${collections}" class = "collection"
+         th:data-id="${collection.id}">
+
+        <div class = collection_name th:text="${collection.name}"></div>
+
+        <div th:if="${collection.colours.size() == 0}" class="no_colours">You don't have colours in this collection</div>
+
+        <div th:each="colour : ${collection.colours}" class = "colour"
+             th:insert="~{fragments/colour :: colour(${colour}, 'collections')}"
+             th:data-id="${colour.id}"
+             th:id="'colour_'+${colour.id}">
+
+
+
+        </div>
 
     </div>
 </div>
@@ -28,9 +41,12 @@
 <script>
 
     $(function () {
-        $(".set").click(function(e){
+
+        // var container = document.getElementById("colours_container");
+
+        $(".colour").click(function(e){
             var id = e.currentTarget.getAttribute("data-id");
-            window.open("/set/"+id, "_self");
+            window.open("/colour/"+id, "_self");
 
         });
 

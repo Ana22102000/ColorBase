@@ -11,13 +11,13 @@
 
 </head>
 <body>
-<div class = "header" th:insert="~{fragments/header :: header(${collections})}"></div>
+<div class = "header" th:insert="~{fragments/header :: header()}"></div>
 
 
 <div class="my_container" id="colours_container">
 
             <div th:each="colour : ${colours}" class = "colour"
-                 th:insert="~{fragments/colour :: colour(${colour})}"
+                 th:insert="~{fragments/colour :: colour(${colour}, null)}"
                  th:data-id="${colour.id}"
                  th:id="'colour_'+${colour.id}">
 

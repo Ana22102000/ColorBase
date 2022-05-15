@@ -47,7 +47,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(authProvider())
                 .authorizeRequests()
                 .antMatchers(
-                        "/project",
+                        "/collections",
                         "/settings"
                 ).authenticated()
 
@@ -56,7 +56,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(customLoginFilter(), LoginFilter.class)
                 .formLogin().permitAll()
                 .loginPage("/login")
-//                .failureUrl("/error/no_access.html")
+                .failureUrl("/error/no_access.html")
                 .and()
                 .logout().permitAll()
                 .and()
