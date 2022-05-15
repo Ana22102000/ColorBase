@@ -2,7 +2,9 @@ package com.example.colorbase.controllers.web;
 
 
 import com.example.colorbase.dto.Colour;
+import com.example.colorbase.dto.Role;
 import com.example.colorbase.dto.Set;
+import com.example.colorbase.dto.users.User;
 import com.example.colorbase.services.CollectionService;
 import com.example.colorbase.services.ColourService;
 import com.example.colorbase.services.SetService;
@@ -39,8 +41,40 @@ public class WebController {
 
     @RequestMapping(value = {"/colours"}, method = RequestMethod.GET)
     public String colours(Model model, Principal principal){
+        try{
+            Optional<User> user = userService.getUserByLogin(principal.getName());
+
+            if(user.get().getRole().getRole().equals(Role.RoleName.ADMIN.toString())) {
+                model.addAttribute("admin", true);
+            }
+
+        } catch (Exception e){
+            //user not logined
+        }
+
         model.addAttribute("colours", colourService.getApprovedColours());
         return "colour/colours";
+    }
+
+    @RequestMapping(value = {"/unapproved_colours"}, method = RequestMethod.GET)
+    public String unapprovedColours(Model model, Principal principal){
+        //only admin has access
+
+        try{
+            Optional<User> user = userService.getUserByLogin(principal.getName());
+
+            if(user.get().getRole().getRole().equals(Role.RoleName.ADMIN.toString())) {
+                model.addAttribute("colours", colourService.getUnapprovedColours());
+                return "colour/colours";
+            }
+            else
+                return "error/no_access";
+
+        } catch (Exception e){
+            //user not logined
+            return "error/no_access";
+
+        }
     }
 
     @RequestMapping("/colour/{id}")
@@ -48,6 +82,38 @@ public class WebController {
         Optional<Colour> colourOptional = colourService.getById(id);
         if (colourOptional.isPresent()){
             model.addAttribute("colour", colourOptional.get());
+
+
+//            if(!colourOptional.get().getApproved()){
+                try{
+                    //add admin  access
+                    Optional<User> user = userService.getUserByLogin(principal.getName());
+
+                    if(user.get().getRole().getRole().equals(Role.RoleName.ADMIN.toString())) {
+                        model.addAttribute("admin", true);
+
+//                        return "colour/colour";
+                    }
+//                    else
+//                        return "error/no_access";
+
+                } catch (Exception e){
+                    //user not logined
+//                    return "error/no_access";
+
+                }
+
+//            }
+
+            model.addAttribute("approved", colourOptional.get().getApproved());
+
+
+            if(principal!=null){
+                Optional<User> user = userService.getUserByLogin(principal.getName());
+                if(user.isPresent()){
+                    model.addAttribute("collections", user.get().getCollections());
+                }
+            }
 
 
 

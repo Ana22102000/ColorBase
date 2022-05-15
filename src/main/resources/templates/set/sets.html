@@ -14,7 +14,10 @@
 <div class = "header" th:insert="~{fragments/header :: header()}"></div>
 
 
+
 <div class="my_container" id="sets_container">
+    <div th:if="${sets.size() == 0}" class="no_colours">No sets on this page</div>
+
 
     <div th:each="set : ${sets}" class = "set"
          th:insert="~{fragments/set :: set(${set})}"

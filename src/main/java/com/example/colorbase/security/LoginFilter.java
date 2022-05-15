@@ -49,6 +49,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         SecurityContextHolder.getContext().setAuthentication(auth);
         final UserDetails authenticatedUser = (UserDetails) auth.getPrincipal();
 
+
+
+
+
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(authenticatedUser));
     }

@@ -44,4 +44,9 @@ public class CollectionService {
         return repo.getAllByUserId(userId);
     }
 
+//    public Optional<Collection> findAllByIdAndColour(int id, Colour colour){
+//        return repo.findAllByIdAndColour(id, colour);
+//    }
+
+
 }

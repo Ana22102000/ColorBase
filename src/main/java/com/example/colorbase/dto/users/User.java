@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,7 @@ import java.util.List;
 @Setter
 @Table(name = "user")
 @ToString
+
 public class User {
     @Id
     @Column(name = "id")

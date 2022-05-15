@@ -9,10 +9,8 @@ import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,11 +51,11 @@ public class Colour {
     private String grade;
 
     @Column(name = "confirmedASTM")
-    @NotEmpty
+    @NotNull
     private Boolean confirmedASTM;
 
     @Column(name = "approved")
-    @NotEmpty
+    @NotNull
     private Boolean approved;
 
     @Column(name = "opacity")
@@ -71,7 +69,6 @@ public class Colour {
 
 
     @Column(name = "image")
-    @NotEmpty
     private String image;
 
     @JsonIdentityInfo(
@@ -80,7 +77,6 @@ public class Colour {
             property = "id",
             scope= Brand.class)
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     @JoinColumn(name="brand_id", nullable=false)
     private Brand brand;
 

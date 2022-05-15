@@ -19,7 +19,8 @@
 
     <div th:data-id="${set.id}">
         <div class="col1">
-            <img class = "set_image" th:src="${set.image}">
+            <img class = "set_image" th:if="${set.image}" th:src="${set.image}">
+            <img class = "set_image" th:unless="${set.image}" src="/img/no_image.jpg">
         </div>
         <div class="col2">
             <label class = "set_name" th:text="${set.name}"></label>
@@ -33,8 +34,11 @@
 
 <div class="horizontal-divider"></div>
 
+    <div th:if="${set.colours.size() == 0}" class="no_colours">Currently we can't display colours from this set, sorry:(</div>
 
-        <div th:each="colour : ${set.colours}" class = "colour"
+
+
+    <div th:each="colour : ${set.colours}" class = "colour"
              th:insert="~{fragments/colour :: colour(${colour}, null)}"
              th:data-id="${colour.id}"
              th:id="'colour_'+${colour.id}">

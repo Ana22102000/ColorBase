@@ -7,7 +7,9 @@
 <div th:fragment="set(set)">
 
 
-    <img class = "set_image" th:src="${set.image}">
+    <img class = "set_image" th:if="${set.image}" th:src="${set.image}">
+    <img class = "set_image" th:unless="${set.image}" src="/img/no_image.jpg">
+
     <div >
         <label class = "set_name" th:text="${set.name}"></label>
         <label class = "set_info" th:text="${set.brand.name}"></label>

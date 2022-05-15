@@ -19,7 +19,9 @@
 
     <div th:data-id="${colour.id}">
         <div class="col1">
-            <img class = "colour_image" th:src="${colour.image}">
+            <img class = "colour_image" th:if="${colour.image}" th:src="${colour.image}">
+            <img class = "colour_image" th:unless="${colour.image}" src="/img/no_image.jpg">
+
         </div>
         <div class="col2">
             <label class = "colour_name" th:text="${colour.name}"></label>
@@ -46,35 +48,47 @@
             <label class = "colour_small_info" th:if="${colour.binder}"th:text="'Binder: ' + ${colour.binder}"></label>
             <label class = "colour_small_info" th:if="${colour.additives}" th:text="'Additives: ' + ${colour.additives}"></label>
 
-            <div class="buttons_container" th:data-id="${colour.id}">
+            <div th:if="${#authorization.expression('isAuthenticated()')} and  ${approved}" class="buttons_container" th:data-id="${colour.id}">
                 <div class="buttons_container_component">Save to:</div>
                 <select class="buttons_container_component" name="collection" id="collection-select">
-                    <option value="selected">Selected</option>
-                    <option value="selected">Selected 2</option>
+                    <option th:each="collection : ${collections}"
+                            th:text="${collection.name}",
+                            th:value="${collection.id}"></option>
 
                 </select>
                 <div class="buttons_container_component" >collection</div>
 
-                <!--                <button class="select_colour_button" th:data-id="${colour.id}" >Save</button>-->
+            </div>
+
+            <div th:if="${admin}" th:unless="${approved}">
+                <button th:data-id="${colour.id}" th:if="${admin}" type="button" class="unapproved_colour_button btn btn-success approve_colour">Approve colour</button>
+                <button th:data-id="${colour.id}" th:if="${admin}" type="button" class="unapproved_colour_button btn btn-danger remove_colour">Remove colour</button>
             </div>
 
         </div>
 
-<!--        <div class="hidden" th:text="${colour.id}"></div>-->
-
 
     </div>
 
-    <div class="horizontal-divider"></div>
-    <label class = "colour_name">Sets with this colour:</label>
+    <div th:if="${approved}">
+        <div class="horizontal-divider"></div>
+        <label class = "colour_name">Sets with this colour:</label>
+
+        <div th:if="${colour.sets.size() == 0}" class="no_sets">Currently there is no sets with this colour, sorry:(</div>
 
 
-    <div th:each="set : ${colour.sets}" class = "set"
-         th:insert="~{fragments/set :: set(${set})}"
-         th:data-id="${set.id}"
-         th:id="'set_'+${set.id}">
+        <div th:each="set : ${colour.sets}" class = "set"
+             th:insert="~{fragments/set :: set(${set})}"
+             th:data-id="${set.id}"
+             th:id="'set_'+${set.id}">
 
+        </div>
     </div>
+
+
+
+
+
 </div>
 
 
@@ -88,15 +102,94 @@
         });
 
         $(document).on("click",".buttons_container",function(e) {
-            if(e.target.type!= 'select-one'){
+            if(e.target.type!= 'select-one') {
 
-                var id = e.currentTarget.getAttribute("data-id");
+                var colour_id = e.currentTarget.getAttribute("data-id");
 
-                console.log(id);
+                var e = document.getElementById("collection-select");
+                var collection_id = e.value;
+                console.log(colour_id + ' ' + collection_id);
+
+
+                var data = {
+                    colour_id: colour_id,
+                    collection_id: collection_id
+                };
+                $.ajax({
+                    type: 'post',
+                    url: '/addColourToCollection',
+                    data: JSON.stringify(data),
+
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/json')
+                    },
+                    success: function (response, status) {
+                        console.log('success')
+                        console.log(response)
+
+                        alert(response);
+                    },
+                    error: function (request) {
+                        alert(request.responseText);
+                    }
+                });
             }
 
-
         });
+
+        $(document).on("click",".approve_colour",function(e) {
+
+                var colour_id = e.currentTarget.getAttribute("data-id");
+
+
+                var data = {
+                    colour_id: colour_id,
+                };
+                $.ajax({
+                    type: 'put',
+                    url: '/approveColour',
+                    data: JSON.stringify(data),
+
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Content-Type', 'application/json')
+                    },
+                    success: function (response, status) {
+                        console.log('success')
+                        window.open("/unapproved_colours", "_self");
+                    },
+                    error: function (request) {
+                        alert(request.responseText);
+                    }
+                });
+        });
+
+
+        $(document).on("click",".remove_colour",function(e) {
+
+            var colour_id = e.currentTarget.getAttribute("data-id");
+
+
+            var data = {
+                colour_id: colour_id,
+            };
+            $.ajax({
+                type: 'put',
+                url: '/removeColour',
+                data: JSON.stringify(data),
+
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                },
+                success: function (response, status) {
+                    console.log('success')
+                    window.open("/unapproved_colours", "_self");
+                },
+                error: function (request) {
+                    alert(request.responseText);
+                }
+            });
+        });
+
 
     });
 </script>

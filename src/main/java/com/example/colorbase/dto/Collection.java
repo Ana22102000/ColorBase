@@ -13,6 +13,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

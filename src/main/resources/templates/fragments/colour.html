@@ -9,7 +9,9 @@
 
     <div class="hidden" th:text="${colour.id}"></div>
 
-    <img class = "colour_image" th:src="${colour.image}">
+    <img class = "colour_image" th:if="${colour.image}" th:src="${colour.image}">
+    <img class = "colour_image" th:unless="${colour.image}" src="/img/no_image.jpg">
+
     <div >
         <label class = "colour_name" th:text="${colour.name}"></label>
         <label class = "colour_info" th:text="${colour.brand.name}"></label>

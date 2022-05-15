@@ -13,6 +13,7 @@
                 <a class="header_title" href="/colours">Colours</a>
                 <a class="header_title" href="/sets">Sets</a>
                 <a class="header_title" href="/collections" th:if="${#authorization.expression('isAuthenticated()')}">Collections</a>
+                <a class="header_title" href="/unapproved_colours" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Unapproved colours</a>
 
             </div>
 

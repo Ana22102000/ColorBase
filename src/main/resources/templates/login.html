@@ -52,7 +52,7 @@
                         window.location.href = "/";
                     },
                     error: function (request, textStatus, errorThrown) {
-                        alert(request.getResponseHeader('error'));
+                        alert(request.responseText);
                     }
                 });
             }

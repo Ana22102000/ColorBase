@@ -15,8 +15,13 @@
 
 
 <div class="my_container" id="colours_container">
+    <div th:if="${colours.size() == 0}" class="no_colours">No colours on this page</div>
 
-            <div th:each="colour : ${colours}" class = "colour"
+
+    <button th:if="${admin}" type="button" class="unapproved_colour_button btn btn-danger button_unapproved_colours">View unapproved colours</button>
+
+
+    <div th:each="colour : ${colours}" class = "colour"
                  th:insert="~{fragments/colour :: colour(${colour}, null)}"
                  th:data-id="${colour.id}"
                  th:id="'colour_'+${colour.id}">
@@ -34,7 +39,10 @@
         $(".colour").click(function(e){
             var id = e.currentTarget.getAttribute("data-id");
             window.open("/colour/"+id, "_self");
+        });
 
+        $(".button_unapproved_colours").click(function(e){
+            window.open("/unapproved_colours", "_self");
         });
 
     });

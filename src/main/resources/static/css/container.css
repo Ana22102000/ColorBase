@@ -48,3 +48,15 @@ p {
 }
 
 
+.unapproved_colour_button{
+    display: block;
+    margin-bottom: 30px;
+}
+
+.no_colours{
+    font-size: 30px;
+    margin-top: 15px;
+    display: block;
+    font-weight: bold;
+    color:#d41111;
+}

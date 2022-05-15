@@ -29,26 +29,38 @@ public class RestCollectionController {
 
     @ResponseBody
     @RequestMapping(value = {"/removeCollection"}, method = RequestMethod.DELETE)
-    public ResponseEntity removeColourFromCollection(@RequestBody Map<String, Integer> map, Principal principal){
+    public ResponseEntity removeCollection(@RequestBody Map<String, Integer> map, Principal principal){
 
         Optional<Collection> collection = collectionService.getById(map.get("collection_id"));
 
-        Optional<User> user = userService.getUserByLogin(principal.getName());
-        if (!collection.isPresent()){
-            return ResponseEntity.badRequest().body("wrong collection id");
-        }
-        if (!user.isPresent()){
-            return ResponseEntity.badRequest().body("user is not authorised");
-        }
-        else if(collection.get().getUser().getId() != user.get().getId()){
-            return ResponseEntity.badRequest().body("collection doesn't belong to current user");
-        }
+        ResponseEntity response = checkCollection(collection, principal);
+        if (response!=null)
+            return response;
+
         else{
             collectionService.removeCollectionById(collection.get().getId());
             return ResponseEntity.ok().body("removed");
 
         }
 
+    }
+
+    private ResponseEntity checkCollection(Optional<Collection> collection, Principal principal) {
+
+        if (!collection.isPresent()){
+            return ResponseEntity.badRequest().body("wrong collection id");
+        }
+        if (principal == null){
+            return ResponseEntity.badRequest().body("user is not authorised");
+        }
+
+        Optional<User> user = userService.getUserByLogin(principal.getName());
+        if(!user.isPresent()){
+            return ResponseEntity.badRequest().body("user does not exist");
+        } else if(collection.get().getUser().getId() != user.get().getId()){
+            return ResponseEntity.badRequest().body("collection doesn't belong to current user");
+        }
+        return null;
     }
 
 }
