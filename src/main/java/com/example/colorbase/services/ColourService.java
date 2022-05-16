@@ -22,6 +22,14 @@ public class ColourService {
         return repo.getAllByBrandId(brandId);
     }
 
+//    public List<Colour> getColoursBySetId(int setId){
+//        return repo.getAllBySetId(setId);
+//    }
+//
+//    public List<Colour> getColoursByCollectionId(int collectionId){
+//        return repo.getAllByCollectionId(collectionId);
+//    }
+
     public List<Colour> getApprovedColours(){
         return repo.getAllByApproved(true);
     }

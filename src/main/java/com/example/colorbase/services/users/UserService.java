@@ -1,6 +1,7 @@
 package com.example.colorbase.services.users;
 
 
+import com.example.colorbase.dto.Collection;
 import com.example.colorbase.dto.users.User;
 import com.example.colorbase.repos.users.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,11 @@ public class UserService {
         return userRepo.findAll();
     }
 
-//    public List<User> getUsersFromProject(Integer project_id){
-//        return userRepo.getUsersFromProject(project_id);
-//    }
+
+public Optional<User> getById(int id){
+    return userRepo.findById(id);
+}
+
 
 
     public User editUser(User user) {

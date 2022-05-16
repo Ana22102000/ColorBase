@@ -83,7 +83,16 @@ public class WebController {
         if (colourOptional.isPresent()){
             model.addAttribute("colour", colourOptional.get());
 
+            model.addAttribute("approved", colourOptional.get().getApproved());
 
+            if(principal!=null){
+                Optional<User> user = userService.getUserByLogin(principal.getName());
+                if(user.isPresent()){
+                    model.addAttribute("collections", user.get().getCollections());
+                }
+            }
+
+            boolean isAdmin = false;
 //            if(!colourOptional.get().getApproved()){
                 try{
                     //add admin  access
@@ -91,9 +100,11 @@ public class WebController {
 
                     if(user.get().getRole().getRole().equals(Role.RoleName.ADMIN.toString())) {
                         model.addAttribute("admin", true);
+                        isAdmin = true;
 
 //                        return "colour/colour";
                     }
+
 //                    else
 //                        return "error/no_access";
 
@@ -103,17 +114,12 @@ public class WebController {
 
                 }
 
-//            }
+                if(!isAdmin && !colourOptional.get().getApproved())
+                    return "error/no_access";
 
-            model.addAttribute("approved", colourOptional.get().getApproved());
 
 
-            if(principal!=null){
-                Optional<User> user = userService.getUserByLogin(principal.getName());
-                if(user.isPresent()){
-                    model.addAttribute("collections", user.get().getCollections());
-                }
-            }
+
 
 
 
@@ -143,6 +149,16 @@ public class WebController {
     public String addCollection(Principal principal) {
         if(principal!=null){
             return "collection/add_collection";
+        }
+        else{
+            return "error/no_access";
+        }
+    }
+
+    @RequestMapping("/add_colour")
+    public String addColour(Principal principal) {
+        if(principal!=null){
+            return "colour/add_colour";
         }
         else{
             return "error/no_access";
