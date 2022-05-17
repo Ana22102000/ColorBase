@@ -41,6 +41,9 @@ public class RestColourController {
         if (response!=null)
             return response;
 
+        if (!colour.get().getApproved())
+            return ResponseEntity.ok().body("colour is not approved");
+
         response = checkUser(principal);
         if (response!=null)
             return response;
@@ -104,6 +107,9 @@ public class RestColourController {
         if (response!=null)
             return response;
 
+        if (!colour.get().getApproved())
+            return ResponseEntity.ok().body("colour is not approved");
+
         response = checkUser(principal);
         if (response!=null)
             return response;
@@ -116,6 +122,7 @@ public class RestColourController {
         if (response!=null)
             return response;
         else{
+
 
             try {
                 colour.get().getSets().add(set.get());
