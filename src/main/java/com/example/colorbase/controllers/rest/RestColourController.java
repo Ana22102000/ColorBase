@@ -275,6 +275,7 @@ public class RestColourController {
         ResponseEntity response = checkUserIsAdmin(principal);
         if (response!=null)
             return response;
+        //todo check colour id - and in all edit methods also check id
 
         else{
             return ResponseEntity.ok().body(colourService.editColour(colour));

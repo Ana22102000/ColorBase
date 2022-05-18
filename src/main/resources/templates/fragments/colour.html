@@ -5,9 +5,7 @@
 
 
 <div th:fragment="colour(colour, page)">
-
-
-    <div class="hidden" th:text="${colour.id}"></div>
+        <div class="hidden" th:text="${colour.id}"></div>
 
     <img class = "colour_image" th:if="${colour.image}" th:src="${colour.image}">
     <img class = "colour_image" th:unless="${colour.image}" src="/img/no_image.jpg">
@@ -19,16 +17,10 @@
         <label class = "colour_info" th:if="${colour.pigments}" th:text="${colour.pigments}"></label>
         <label class = "colour_info" th:unless="${colour.pigments}">Pigments unknown</label>
 
-        <button th:if="${page} == 'collections'" th:data-id="${colour.id}" type="button" class="colour_button btn btn-danger delete_colour_from_collection">Delete from collection</button>
-
-
+        <button th:if="${page} == 'collections'" th:data-id="${colour.id}" type="button"
+                class="colour_button btn btn-danger delete_colour_from_collection">Delete from collection</button>
     </div>
-
-<!--    <div class="buttons_container">-->
-<!--        <a class="edit_task_button">&#9998;</a>-->
-<!--        <a class="delete_task_button">&#128465;</a>-->
-<!--    </div>-->
-
 </div>
+
 </body>
 </html>
