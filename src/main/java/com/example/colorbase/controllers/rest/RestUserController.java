@@ -152,7 +152,7 @@ public class RestUserController {
 
         Optional<User> user = userService.getUserByLogin(principal.getName());
         if(!user.get().getRole().getRole().equals(Role.RoleName.OWNER.toString())){
-            return ResponseEntity.badRequest().body("user is not admin");
+            return ResponseEntity.badRequest().body("user is not owner");
         }
         return null;
 
